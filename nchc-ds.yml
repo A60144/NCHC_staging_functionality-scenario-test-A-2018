@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nchc-test
+  labels:
+    name: nchc-test
+spec:
+  selector:
+    matchLabels:
+      name: nchc-test
+  template:
+    metadata:
+      labels:
+        name: nchc-test
+    spec:
+      containers:
+      - name: nchc-test
+        image: theresaliao/nchc-test-gpu:0.67
+        command: [ "/bin/bash", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80", "-c", "sleep 2147483647"]
+        ports:
+        - containerPort: 80
+        - containerPort: 81
+        - containerPort: 82
+        - containerPort: 83
+        - containerPort: 84
+        - containerPort: 85
+        - containerPort: 86
+        - containerPort: 87
+        - containerPort: 88
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        volumeMounts:
+        - name: weight
+          mountPath: /usr/src/app/weights/
+      volumes:
+      - name: weight
+        hostPath:
+          path: /home/weights/
