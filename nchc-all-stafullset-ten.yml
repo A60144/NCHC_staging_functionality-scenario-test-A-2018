@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nchc-test
+  labels:
+    name: nchc-test
+spec:
+  ports:
+  - name: camara-0
+    port: 80
+    nodePort: 30010
+  - name: camara-1
+    port: 81
+    nodePort: 30011
+  - name: camara-2
+    port: 82
+    nodePort: 30012
+  - name: camara-3
+    port: 83
+    nodePort: 30013
+  - name: camara-4
+    port: 84
+    nodePort: 30014
+  - name: camara-5
+    port: 85
+    nodePort: 30015
+  - name: camara-6
+    port: 86
+    nodePort: 30016
+  - name: camara-7
+    port: 87
+    nodePort: 30017
+  - name: camara-8
+    port: 88
+    nodePort: 30018
+  selector:
+    name: nchc-test
+  type: NodePort
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: nchc-test
+spec:
+  serviceName: "nchc-test"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+         name: nchc-test
+    spec:
+      containers:
+      - name: nchc-test
+        image: theresaliao/nchc-test-gpu:0.67
+        command: [ "/bin/bash", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80", "-c", "python train.py -t nfbCCTV-N3-N-27.916-M -s --address_ip 0.0.0.0 --serve_port 81", "-c", "python train.py -t nfbCCTV-N3-S-5.61-M -s --address_ip 0.0.0.0 --serve_port 82","-c", "python train.py -t nfbCCTV-N3-S-5.61-M -s --address_ip 0.0.0.0 --serve_port 83", "-c", "python train.py -t nfbCCTV-N3-N-232.541-M -s --address_ip 0.0.0.0 --serve_port 84", "-c", "python train.py -t nfbCCTV-N3-S-95.63-M -s --address_ip 0.0.0.0 --serve_port 85", "-c", "python train.py -t nfbCCTV-N5-S-22.493-M -s --address_ip 0.0.0.0 --serve_port 86", "-c", "python train.py -t nfbCCTV-N3-N-42.73-M -s --address_ip 0.0.0.0 --serve_port 87",, "-c", "python train.py -t nfbCCTV-N5-N-26.715-M -s --address_ip 0.0.0.0 --serve_port 88", "-c", "python train.py -t nfbCCTV-N1-N-326.25-M -s --address_ip 0.0.0.0 --serve_port 89" "-c", "sleep 2147483647"]
+        ports:
+        - containerPort: 80
+        - containerPort: 81
+        - containerPort: 82
+        - containerPort: 83
+        - containerPort: 84
+        - containerPort: 85
+        - containerPort: 86
+        - containerPort: 87
+        - containerPort: 88
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        volumeMounts:
+        - name: weight
+          mountPath: /usr/src/app/weights/
+      volumes:
+      - name: weight
+        hostPath:
+          path: /home/weights/
