@@ -17,7 +17,7 @@ spec:
       containers:
       - name: nchc-test
         image: theresaliao/nchc-test-gpu:0.67
-        command: [ "/bin/bash", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80 &","-c", "sleep 2147483647"]
+        command: [ "/bin/bash", "-c", "sleep 2147483647", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80 &"]
         ports:
         - containerPort: 80
         - containerPort: 81
