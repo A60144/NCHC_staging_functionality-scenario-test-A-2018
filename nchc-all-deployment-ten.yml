@@ -31,6 +31,13 @@ spec:
         resources:
           limits:
             nvidia.com/gpu: 1
+        volumeMounts:
+        - name: weight
+          mountPath: /usr/src/app/weights/
+      volumes:
+      - name: weight
+        hostPath:
+          path: /home/weights/
 ---
 apiVersion: v1
 kind: Service
