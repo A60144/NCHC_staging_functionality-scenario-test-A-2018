@@ -5,7 +5,7 @@ metadata:
   labels:
     name: nchc-test
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       name: nchc-test
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nchc-test
-        command: [ "/bin/bash", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80",  "-c", "sleep 2147483647"]
+        command: [ "/bin/bash", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80", "-c", "python train.py -t nfbCCTV-N3-N-27.916-M -s --address_ip 0.0.0.0 --serve_port 81", "-c", "python train.py -t nfbCCTV-N3-S-5.61-M -s --address_ip 0.0.0.0 --serve_port 82","-c", "python train.py -t nfbCCTV-N3-S-5.61-M -s --address_ip 0.0.0.0 --serve_port 83", "-c", "python train.py -t nfbCCTV-N3-N-232.541-M -s --address_ip 0.0.0.0 --serve_port 84", "-c", "python train.py -t nfbCCTV-N3-S-95.63-M -s --address_ip 0.0.0.0 --serve_port 85", "-c", "python train.py -t nfbCCTV-N5-S-22.493-M -s --address_ip 0.0.0.0 --serve_port 86", "-c", "python train.py -t nfbCCTV-N3-N-42.73-M -s --address_ip 0.0.0.0 --serve_port 87",, "-c", "python train.py -t nfbCCTV-N5-N-26.715-M -s --address_ip 0.0.0.0 --serve_port 88", "-c", "python train.py -t nfbCCTV-N1-N-326.25-M -s --address_ip 0.0.0.0 --serve_port 89" "-c", "sleep 2147483647"]
         image: theresaliao/nchc-test-gpu:0.67
         ports:
         - containerPort: 80
