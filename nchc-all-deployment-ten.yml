@@ -28,6 +28,7 @@ spec:
         - containerPort: 86
         - containerPort: 87
         - containerPort: 88
+        - containerPort: 89
         resources:
           limits:
             nvidia.com/gpu: 1
@@ -74,6 +75,9 @@ spec:
   - name: camara-8
     port: 88
     nodePort: 30018
+  - name: camara-9
+    port: 89
+    nodePort: 30019
   selector:
     name: nchc-test
   type: NodePort
