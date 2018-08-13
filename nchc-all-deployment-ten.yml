@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: nginx-test
+  name: nchc-test
   labels:
     name: nchc-test
 spec:
