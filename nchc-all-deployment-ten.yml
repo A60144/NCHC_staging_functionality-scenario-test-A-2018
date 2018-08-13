@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: nginx-test
   labels:
-    app: nchc-test
+    name: nchc-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nchc-test
+      name: nchc-test
   template:
     metadata:
       labels:
-        app: nchc-test
+        name: nchc-test
     spec:
       containers:
       - name: nchc-test
@@ -44,7 +44,7 @@ kind: Service
 metadata:
   name: nchc-test
   labels:
-    app: nchc-test
+    name: nchc-test
 spec:
   ports:
   - name: camara-0
@@ -75,5 +75,5 @@ spec:
     port: 88
     nodePort: 30018
   selector:
-    app: nchc-test
+    name: nchc-test
   type: NodePort
