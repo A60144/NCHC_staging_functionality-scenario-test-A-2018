@@ -19,10 +19,10 @@ spec:
         command: [ "/bin/bash", "-c", "python train.py -t nfbCCTV-N3-S-275.5-M -s --address_ip 0.0.0.0 --serve_port 80",  "-c", "sleep 2147483647"]
         image: theresaliao/nchc-test-gpu:0.67
         ports:
-        - containerPort: 1010
-        - containerPort: 1011
-        - containerPort: 1025
-        - containerPort: 5000
+        - containerPort: 80
+        - containerPort: 81
+        - containerPort: 82
+        - containerPort: 83
         - containerPort: 84
         - containerPort: 85
         - containerPort: 86
@@ -48,16 +48,16 @@ metadata:
 spec:
   ports:
   - name: camara-0
-    port: 1010
+    port: 80
     nodePort: 30010
   - name: camara-1
-    port: 1011
+    port: 81
     nodePort: 30011
   - name: camara-2
-    port: 1025
+    port: 82
     nodePort: 30012
   - name: camara-3
-    port: 5000
+    port: 83
     nodePort: 30013
   - name: camara-4
     port: 84
