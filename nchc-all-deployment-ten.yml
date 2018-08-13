@@ -1,0 +1,72 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-test
+  labels:
+    app: nchc-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nchc-test
+  template:
+    metadata:
+      labels:
+        app: nchc-test
+    spec:
+      containers:
+      - name: nchc-test
+        command: [ "/bin/bash", "-c", "sleep 2147483647" ]
+        image: theresaliao/nchc-test-gpu:0.63
+        ports:
+        - containerPort: 1010
+        - containerPort: 1011
+        - containerPort: 1025
+        - containerPort: 5000
+        - containerPort: 84
+        - containerPort: 85
+        - containerPort: 86
+        - containerPort: 87
+        - containerPort: 88
+        resources:
+          limits:
+            nvidia.com/gpu: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nchc-test
+  labels:
+    app: nchc-test
+spec:
+  ports:
+  - name: camara-0
+    port: 1010
+    nodePort: 30010
+  - name: camara-1
+    port: 1011
+    nodePort: 30011
+  - name: camara-2
+    port: 1025
+    nodePort: 30012
+  - name: camara-3
+    port: 5000
+    nodePort: 30013
+  - name: camara-4
+    port: 84
+    nodePort: 30014
+  - name: camara-5
+    port: 85
+    nodePort: 30015
+  - name: camara-6
+    port: 86
+    nodePort: 30016
+  - name: camara-7
+    port: 87
+    nodePort: 30017
+  - name: camara-8
+    port: 88
+    nodePort: 30018
+  selector:
+    app: nchc-test
+  type: NodePort
